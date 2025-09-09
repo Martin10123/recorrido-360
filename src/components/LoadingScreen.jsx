@@ -24,7 +24,6 @@ function LoadingScreen() {
         return newProgress;
       });
 
-      // Update loading text
       if (currentMessageIndex < loadingMessages.length - 1) {
         setLoadingText(loadingMessages[currentMessageIndex]);
         currentMessageIndex++;

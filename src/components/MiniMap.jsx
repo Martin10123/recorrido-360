@@ -2,10 +2,9 @@ import { useState } from "react";
 import Scene from "../helpers/dataScene";
 
 function MiniMap({ currentScene, onSceneChange }) {
-  const [activePlan, setActivePlan] = useState("upper"); // 'upper' or 'lower'
+  const [activePlan, setActivePlan] = useState("upper");
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Define scene positions on the ship plans
   const scenePositions = {
     upper: {
       insideOne: { x: 50, y: 20, label: "Puente de Gobierno" },
@@ -59,7 +58,6 @@ function MiniMap({ currentScene, onSceneChange }) {
 
   const handleSceneClick = (sceneId) => {
     onSceneChange(sceneId);
-    // Auto-switch plan if needed
     const targetPlan = getCurrentPlan();
     if (targetPlan !== activePlan) {
       setActivePlan(targetPlan);
@@ -69,7 +67,6 @@ function MiniMap({ currentScene, onSceneChange }) {
   const renderSceneMarkers = (plan) => {
     return Object.entries(scenePositions[plan]).map(([sceneId, position]) => {
       const isActive = sceneId === currentScene;
-      const sceneData = Scene[sceneId];
 
       return (
         <div
@@ -140,7 +137,6 @@ function MiniMap({ currentScene, onSceneChange }) {
 
       <div className="flex-1 p-6 relative">
         <div className="relative w-full h-72 bg-blue-900/10 rounded-xl border border-blue-500/20 overflow-hidden">
-          {/* Ship outline */}
           <svg viewBox="0 0 100 100" className="w-full h-full">
             <path
               d="M10 20 Q20 10 30 15 L70 15 Q80 10 90 20 L85 80 Q80 90 70 85 L30 85 Q20 90 15 80 Z"
@@ -148,7 +144,6 @@ function MiniMap({ currentScene, onSceneChange }) {
               stroke="rgba(59, 130, 246, 0.3)"
               strokeWidth="0.5"
             />
-            {/* Ship details */}
             <rect
               x="25"
               y="25"
@@ -172,11 +167,9 @@ function MiniMap({ currentScene, onSceneChange }) {
             />
           </svg>
 
-          {/* Scene markers */}
           {renderSceneMarkers(activePlan)}
         </div>
 
-        {/* Legend */}
         <div className="flex flex-col gap-3 mt-6 p-4 bg-blue-900/10 rounded-lg border border-blue-500/20">
           <div className="flex items-center gap-3 text-sm text-slate-400">
             <div className="w-3 h-3 rounded-full border-2 border-white bg-emerald-500"></div>
@@ -193,7 +186,6 @@ function MiniMap({ currentScene, onSceneChange }) {
         </div>
       </div>
 
-      {/* Current scene info */}
       <div className="p-6 border-t border-blue-500/20 bg-blue-900/10">
         <h4 className="text-sm font-semibold text-slate-400 mb-2">
           Escena Actual:

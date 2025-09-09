@@ -8,7 +8,6 @@ function Hotspot({ hotspot, onClick }) {
   const [hovered, setHovered] = useState(false);
   const [showLabel, setShowLabel] = useState(false);
 
-  // Convert pitch/yaw to 3D position
   const getPosition = () => {
     const phi = (90 - hotspot.pitch) * (Math.PI / 180);
     const theta = (hotspot.yaw + 180) * (Math.PI / 180);
@@ -24,11 +23,9 @@ function Hotspot({ hotspot, onClick }) {
 
   useFrame((state) => {
     if (meshRef.current) {
-      // Pulsing animation
       const scale = 1 + Math.sin(state.clock.elapsedTime * 3) * 0.1;
       meshRef.current.scale.setScalar(scale);
 
-      // Hover effect
       if (hovered) {
         meshRef.current.scale.setScalar(scale * 1.2);
       }
@@ -41,9 +38,9 @@ function Hotspot({ hotspot, onClick }) {
   };
 
   const getHotspotColor = () => {
-    if (hotspot.type === "navigation") return "#10b981"; // Green
-    if (hotspot.type === "info") return "#ef4444"; // Red
-    return "#3b82f6"; // Blue default
+    if (hotspot.type === "navigation") return "#10b981";
+    if (hotspot.type === "info") return "#ef4444";
+    return "#3b82f6";
   };
 
   const getHotspotIcon = () => {
@@ -74,7 +71,6 @@ function Hotspot({ hotspot, onClick }) {
         />
       </mesh>
 
-      {/* Outer ring for navigation hotspots */}
       {hotspot.type === "navigation" && (
         <mesh>
           <ringGeometry args={[12, 16, 32]} />
@@ -87,7 +83,6 @@ function Hotspot({ hotspot, onClick }) {
         </mesh>
       )}
 
-      {/* Icon */}
       <Text
         position={[0, 0, 0]}
         fontSize={12}
@@ -98,7 +93,6 @@ function Hotspot({ hotspot, onClick }) {
         {getHotspotIcon()}
       </Text>
 
-      {/* Label on hover */}
       {showLabel && hotspot.label && (
         <Html position={[0, 20, 0]} center distanceFactor={100}>
           <div className="bg-slate-900/90 backdrop-blur-xl border border-blue-500/30 rounded-lg px-4 py-2 text-slate-200 text-sm font-medium whitespace-nowrap shadow-lg animate-fadeInUp">
@@ -107,7 +101,6 @@ function Hotspot({ hotspot, onClick }) {
         </Html>
       )}
 
-      {/* Preview image on hover for navigation hotspots */}
       {showLabel && hotspot.previewImage && hotspot.type === "navigation" && (
         <Html position={[0, -30, 0]} center distanceFactor={80}>
           <div className="animate-fadeInUp">

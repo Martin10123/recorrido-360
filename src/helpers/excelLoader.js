@@ -1,6 +1,5 @@
 import * as XLSX from "xlsx";
 
-// Función para cargar y procesar datos del Excel
 export const loadScenesFromExcel = async () => {
   try {
     // Cargar el archivo Excel desde la carpeta public

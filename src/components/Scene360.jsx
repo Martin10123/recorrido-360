@@ -8,15 +8,12 @@ import Hotspot from "./Hotspot";
 function Scene360({ sceneId, onHotspotClick }) {
   const [hotspots, setHotspots] = useState([]);
 
-  // Obtener los datos de la escena
   const sceneData = Scene[sceneId];
 
-  // Usar useLoader para cargar la textura (como en el ejemplo)
   const texture = useLoader(TextureLoader, sceneData?.image || "");
 
   useEffect(() => {
     if (sceneData) {
-      // Convert hotspots to array format
       const hotspotArray = Object.entries(sceneData.hotSpots || {}).map(
         ([id, hotspot]) => ({
           id,
